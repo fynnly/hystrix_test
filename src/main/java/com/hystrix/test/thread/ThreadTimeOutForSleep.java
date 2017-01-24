@@ -10,7 +10,10 @@ import org.junit.Test;
 import org.springframework.stereotype.Component;
 
 /**
- * Created by libin on 17/1/24.
+ *
+ *  测试线程池模式下
+ *  使用Sleep超时时,是否会释放线程
+ *
  */
 @Component
 public class ThreadTimeOutForSleep {
