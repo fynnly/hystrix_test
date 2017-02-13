@@ -31,7 +31,7 @@ public class CommandKeySetTest extends BaseTest{
         System.out.println("-------->method1Fallback");
     }
 
-    @HystrixCommand(groupKey = "CommandKeySetTest", commandKey = "method2", fallbackMethod = "method2Fallback",
+    @HystrixCommand(groupKey = "CommandKeySetTest", commandKey = "method", fallbackMethod = "method2Fallback",
             commandProperties = {
                     @HystrixProperty(name = HystrixPropertiesManager.EXECUTION_ISOLATION_STRATEGY, value = "SEMAPHORE"),
                     @HystrixProperty(name = HystrixPropertiesManager.EXECUTION_ISOLATION_THREAD_TIMEOUT_IN_MILLISECONDS, value = "100"),
