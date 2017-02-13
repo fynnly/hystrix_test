@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class CommandKeySetTest extends BaseTest{
 
-    @HystrixCommand(groupKey = "asyncFutureTest", commandKey = "asyncFutureTestCommandKey", fallbackMethod = "startFallback",
+    @HystrixCommand(groupKey = "CommandKeySetTest", commandKey = "method", fallbackMethod = "method1Fallback",
             commandProperties = {
                     @HystrixProperty(name = HystrixPropertiesManager.EXECUTION_ISOLATION_STRATEGY, value = "SEMAPHORE"),
                     @HystrixProperty(name = HystrixPropertiesManager.EXECUTION_ISOLATION_THREAD_TIMEOUT_IN_MILLISECONDS, value = "300"),
@@ -24,17 +24,14 @@ public class CommandKeySetTest extends BaseTest{
                     @HystrixProperty(name = HystrixPropertiesManager.CIRCUIT_BREAKER_ERROR_THRESHOLD_PERCENTAGE, value = "30"),
             }
     )
-    public AsyncResponse start(){
-        System.out.println("-------->start");
-        return null;
+    public void method1(){
+        System.out.println("-------->method1");
     }
-    public AsyncResponse startFallback(){
-        System.out.println("-------->startFallback");
-
-        return null;
+    public void method1Fallback(){
+        System.out.println("-------->method1Fallback");
     }
 
-    @HystrixCommand(groupKey = "asyncFutureTest", commandKey = "asyncFutureTestCommandKey", fallbackMethod = "getFallback",
+    @HystrixCommand(groupKey = "CommandKeySetTest", commandKey = "method2", fallbackMethod = "method2Fallback",
             commandProperties = {
                     @HystrixProperty(name = HystrixPropertiesManager.EXECUTION_ISOLATION_STRATEGY, value = "SEMAPHORE"),
                     @HystrixProperty(name = HystrixPropertiesManager.EXECUTION_ISOLATION_THREAD_TIMEOUT_IN_MILLISECONDS, value = "100"),
@@ -42,19 +39,17 @@ public class CommandKeySetTest extends BaseTest{
                     @HystrixProperty(name = HystrixPropertiesManager.CIRCUIT_BREAKER_ERROR_THRESHOLD_PERCENTAGE, value = "10"),
             }
     )
-    public String get(){
-        System.out.println("-------->get");
-        return "success";
+    public void method2(){
+        System.out.println("-------->method2");
     }
-    public String getFallback(){
-        System.out.println("-------->getFallback");
-        return "get failed";
+    public void method2Fallback(){
+        System.out.println("-------->method2Fallback");
     }
 
     @Test
     public void test(){
         final CommandKeySetTest instance = SpringUtil.getBean(CommandKeySetTest.class);
-        instance.start();
-        instance.get();
+        instance.method1();
+        instance.method2();
     }
 }
